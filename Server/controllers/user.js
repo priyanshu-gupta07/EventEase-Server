@@ -15,7 +15,11 @@ const HandleSignup = async (req, res) => {
       role,
     });
 
-    const token = jwtsign(newUser);
+    const token = jwtsign({
+      username: newUser.username,
+      email: newUser.email,
+      role: newUser.role,
+    });
 
     res.status(201).json({
       message: "User created successfully",
@@ -39,7 +43,11 @@ const HandleLogin = async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
-            const token = jwtsign(user);
+            const token = jwtsign({
+                username: user.username,
+                email: user.email,
+                role: user.role,
+            });
             res.cookie('token', token);
             res.cookie('_id', user._id);
             res.status(200).json({
