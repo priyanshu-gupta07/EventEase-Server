@@ -16,15 +16,32 @@ const getAvailableEvents = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
+    console.log("here");
     try {
-        const newEvent = new Event(req.body);
+        const { title, description, date, location, availableSeats, price, image, tags, organizerEmail } = req.body;
+        
+        const newEvent = new Event({
+          title,
+          description,
+          date,
+          location,
+          AvailableSeats: availableSeats,
+          bookedSeats: 0,
+          price,
+          image,
+          Tags: tags.split(','),
+          likecount: 0,
+          comments: [],
+          organizer_email: organizerEmail
+        });
+    
         await newEvent.save();
-        res.status(201).send(newEvent);
-    } catch (error) {
-        console.error('Error creating event:', error);
-        res.status(400).send('Bad Request');
-    }
+        res.status(201).json(newEvent);
+      } catch (error) {
+        res.status(400).json({ message: error.message });
+      }
 };
+
 
 const getSingleEvent = async (req, res) => {
     try {
