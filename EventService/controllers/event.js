@@ -106,8 +106,10 @@ const getEventsByDate = async (req, res) => {
 
 const getEventsByOrganizer = async (req, res) => {
     try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const { email } = req.params;
-        const events = await Event.find({ organizer_email: email });
+        const events = await Event.find({ organizer_email: email,date: { $gte: today }});
 
         if (events.length === 0) {
             return res.status(404).send('No events found for the given organizer');
