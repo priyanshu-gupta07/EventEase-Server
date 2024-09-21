@@ -6,8 +6,6 @@ configDotenv();
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import adminrouter from "./routes/admin.js";
-import Organiserrouter from "./routes/organiser.js";
 import proxy from 'express-http-proxy';
 
 const app = express();
@@ -24,9 +22,8 @@ Connection();
 
 // Use routers
 app.use('/user', userRouter);
-app.use('/admin', adminrouter);
-app.use('/api/events', proxy("http://localhost:3001")); // Proxy events requests
-app.use('/organiser', Organiserrouter); // Changed to lowercase 'organiser' for consistency
+app.use('/api/events', proxy("http://localhost:3001")); 
+app.use('api/booking', proxy("http://localhost:3002"));
 
 app.listen(PORT, () => {
     console.log(`API Gateway is running on port ${PORT}`);

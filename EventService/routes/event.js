@@ -12,7 +12,8 @@ const {
     getEventsByOrganizer,
     getEventsByTitle,
     getEventsByLocation,
-    getEventsByTag
+    getEventsByTag,
+    updateEventseats
 } = require('../controllers/event'); // Adjust path as needed
 
 // Basic CRUD routes
@@ -65,5 +66,6 @@ router.get('/organizer/:email', getEventsByOrganizer);
 router.get('/title/:title', getEventsByTitle);
 router.get('/location/:location', getEventsByLocation);
 router.get('/tag/:tag', getEventsByTag);
+router.put('/updateSeats', updateEventseats);
 
 module.exports = router;

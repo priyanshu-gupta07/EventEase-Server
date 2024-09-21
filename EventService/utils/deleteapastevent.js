@@ -1,8 +1,4 @@
-const mongoose = require('mongoose');
 const Event = require('../models/events'); // Adjust the path as needed
-
-// MongoDB connection string
-const mongoURI = 'mongodb://localhost:27017/your_database_name'; // Replace with your actual MongoDB URI
 
 // Function to delete past events
 async function deletePastEvents() {

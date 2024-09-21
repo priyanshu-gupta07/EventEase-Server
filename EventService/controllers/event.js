@@ -170,6 +170,18 @@ const getEventsByTag = async (req, res) => {
     }
 };
 
+const updateEventseats = async (req, res) => {
+    const { id, seats } = req.body;
+    try {
+        const event = await Event.findByIdAndUpdate({ _id: id }, { $inc: { bookedSeats: seats } }, { new: true });
+        res.send(event);
+    }
+    catch (error) {
+        console.error('Error updating event seats:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 module.exports = {
     getEventsByDate,
     getEventsByOrganizer,
@@ -181,5 +193,6 @@ module.exports = {
     getSingleEvent,
     updateEvent,
     deleteEvent,
+    updateEventseats,
 };
 
