@@ -23,7 +23,7 @@ Connection();
 // Use routers
 app.use('/user', userRouter);
 app.use('/api/events', proxy("http://localhost:3001")); 
-app.use('api/booking', proxy("http://localhost:3002"));
+app.use('/api/bookings', proxy("http://localhost:3002"));
 
 app.listen(PORT, () => {
     console.log(`API Gateway is running on port ${PORT}`);

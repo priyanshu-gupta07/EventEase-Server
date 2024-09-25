@@ -1,4 +1,5 @@
 const Event = require("../models/events");
+const io = require("../index.js");
 
 const getAvailableEvents = async (req, res) => {
     try {
@@ -171,16 +172,52 @@ const getEventsByTag = async (req, res) => {
 };
 
 const updateEventseats = async (req, res) => {
-    const { id, seats } = req.body;
+    const id = req.params.id;
+    const { seats } = req.body;
+    const seat = parseInt(seats);
+
     try {
-        const event = await Event.findByIdAndUpdate({ _id: id }, { $inc: { bookedSeats: seats } }, { new: true });
-        res.send(event);
-    }
-    catch (error) {
+        // Find the event by id
+        const event = await Event.findById(id);
+
+        if (!event) {
+            return res.status(404).send('Event not found');
+        }
+
+        const availableSeats = event.AvailableSeats - event.bookedSeats;
+
+        if (availableSeats < seat) {
+            return res.status(400).send('Not enough seats available');
+        }
+
+        const startSeat = event.bookedSeats + 1;
+
+        // Proceed to update the booked seats
+        event.bookedSeats += seat;
+        await event.save();
+
+        // Now that the event is updated, calculate the newly booked seats
+        const newlyBookedSeatsArray = Array.from({ length: seat }, (_, index) => startSeat + index);
+
+        // Emit the updated seats to all connected clients via WebSocket
+        // console.log(req.io);
+        req.io.emit('seatsUpdated', {
+            eventId: id,
+            newlyBookedSeats: newlyBookedSeatsArray,
+            totalBookedSeats: event.bookedSeats
+        });
+
+        // Send the response after emitting
+        res.send(newlyBookedSeatsArray);
+
+    } catch (error) {
         console.error('Error updating event seats:', error);
         res.status(500).send('Internal Server Error');
     }
-}
+};
+
+
+
 
 module.exports = {
     getEventsByDate,

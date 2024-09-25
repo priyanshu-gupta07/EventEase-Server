@@ -5,7 +5,7 @@ async function deletePastbookings() {
   try {
     const currentDate = new Date();
     
-    const result = await Booking.deleteMany({ booking_date: { $lt: currentDate } });
+    const result = await Booking.deleteMany({ event_date: { $lt: currentDate } });
     
     console.log(`Deleted ${result.deletedCount} past bookings.`);
   } catch (error) {

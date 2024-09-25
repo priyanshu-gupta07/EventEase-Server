@@ -12,7 +12,7 @@ const {
 } = require('../controller/booking');
 
 router.get('/', getBookings);
-router.get('/:bookingId', getBookingById);
+router.get('/:userid/:eventid', getBookingById);
 router.post('/', createBooking);
 router.put('/:bookingId/:booking_status', updateBooking);
 router.delete('/:bookingId', deleteBooking);

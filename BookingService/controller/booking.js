@@ -10,9 +10,9 @@ const getBookings = async (req, res) => {
 };
 
 const getBookingById = async (req, res) => {
-    const { bookingId } = req.params;
+    const { userid,eventid } = req.params;
     try {
-        const booking = await Booking.findById(bookingId);
+        const booking = await Booking.findById({user_id:userid,event_id:eventid});
         res.json(booking);
     }
     catch (err) {
@@ -25,7 +25,13 @@ const createBooking = async (req, res) => {
         event_id: req.body.event_id,
         user_id: req.body.user_id,
         booking_date: req.body.booking_date,
-        booking_status: req.body.booking_status
+        booking_status: req.body.booking_status,
+        event_name: req.body.event_name,
+        Amount_paid: req.body.Amount_paid,
+        seat_no: req.body.seat_no,
+        count: req.body.count,
+        username: req.body.username,
+        event_date: req.body.event_date
     });
     try {
         const savedBooking = await booking.save();

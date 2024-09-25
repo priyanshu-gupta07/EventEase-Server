@@ -66,6 +66,6 @@ router.get('/organizer/:email', getEventsByOrganizer);
 router.get('/title/:title', getEventsByTitle);
 router.get('/location/:location', getEventsByLocation);
 router.get('/tag/:tag', getEventsByTag);
-router.put('/updateSeats', updateEventseats);
+router.put('/updateSeats/:id', updateEventseats);
 
 module.exports = router;
