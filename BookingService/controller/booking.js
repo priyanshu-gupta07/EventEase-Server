@@ -12,7 +12,7 @@ const getBookings = async (req, res) => {
 const getBookingById = async (req, res) => {
     const { userid,eventid } = req.params;
     try {
-        const booking = await Booking.findById({user_id:userid,event_id:eventid});
+        const booking = await Booking.find({user_id:userid,event_id:eventid});
         res.json(booking);
     }
     catch (err) {
@@ -65,6 +65,7 @@ const deleteBooking = async (req, res) => {
 
 const getBookingsByUserId = async (req, res) => {
     const { userId } = req.params;
+    console.log(userId);
     try {
         const bookings = await Booking.find({ user_id: userId });
         res.json(bookings);
@@ -84,4 +85,14 @@ const getBookingsByEventId = async (req, res) => {
     }
 };
 
-module.exports = { getBookings, getBookingById, createBooking, updateBooking, deleteBooking, getBookingsByUserId, getBookingsByEventId};
+const getNextEvent = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const booking = await Booking.find({ user_id: userId }).sort({ event_date: 1 }).limit(1);
+        res.json(booking);
+    } catch (err) {
+        res.json({ message: err });
+    }
+}
+
+module.exports = { getBookings, getBookingById, createBooking, updateBooking, deleteBooking, getBookingsByUserId, getNextEvent, getBookingsByEventId};

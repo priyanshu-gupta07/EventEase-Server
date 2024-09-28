@@ -8,15 +8,17 @@ const {
     updateBooking,
     deleteBooking,
     getBookingsByUserId,
-    getBookingsByEventId
+    getBookingsByEventId,
+    getNextEvent
 } = require('../controller/booking');
 
 router.get('/', getBookings);
+router.get('/users/:userId', getBookingsByUserId);
+router.get('/nextEvent/:userId', getNextEvent);
 router.get('/:userid/:eventid', getBookingById);
 router.post('/', createBooking);
 router.put('/:bookingId/:booking_status', updateBooking);
 router.delete('/:bookingId', deleteBooking);
-router.get('/user/:userId', getBookingsByUserId);
 router.get('/event/:eventId', getBookingsByEventId);
 
 module.exports = router;

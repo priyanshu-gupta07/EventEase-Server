@@ -23,7 +23,7 @@ const HandleSignup = async (req, res) => {
 
     res.status(201).json({
       message: "User created successfully",
-      user: { username: newUser.username, email: newUser.email },
+      user: { username: newUser.username, email: newUser.email, role: newUser.role },
       token: token,
     });
   } catch (err) {
