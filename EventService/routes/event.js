@@ -14,9 +14,8 @@ const {
     getEventsByLocation,
     getEventsByTag,
     updateEventseats
-} = require('../controllers/event'); // Adjust path as needed
+} = require('../controllers/event');
 
-// Basic CRUD routes
 router.post('/', upload.single('image'), async (req, res) => {
     Cloudinary.uploader.upload(req.file.path, async (err, result) => {
         if (err) {
@@ -36,7 +35,6 @@ router.put('/:id', upload.single('image'), async (req, res) => {
         let imageUrl;
 
         if (req.file) {
-            // Upload new image to Cloudinary
             Cloudinary.uploader.upload(req.file.path, async (err, result) => {
                 if (err) {
                     console.error('Error uploading image to Cloudinary:', err);
@@ -47,8 +45,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
                 console.log('Image uploaded to Cloudinary:', result.secure_url);
                 await updateEvent(req, res);
         })} else {
-            // No new image uploaded, retain the existing image URL
-            req.body.image = req.body.image; // Assuming the existing image URL is passed from the client
+            req.body.image = req.body.image;
             await updateEvent(req, res);
         }
         
@@ -60,7 +57,6 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 
 router.delete('/:id', deleteEvent);
 
-// Advanced search routes
 router.get('/date/:date', getEventsByDate);
 router.get('/organizer/:email', getEventsByOrganizer);
 router.get('/title/:title', getEventsByTitle);
