@@ -5,9 +5,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import http from 'http';
 import { Server } from 'socket.io';
-import Connection from './connection.js';  // Note: .js extension is required
-import eventRouter from './routes/event.js';  // Note: .js extension is required
-
+import Connection from './connection.js'; 
+import eventRouter from './routes/event.js';
 dotenv.config();
 
 const PORT = process.env.PORT || 3001;
@@ -37,7 +36,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: process.env.APP_URL,  // Set allowed origins for socket connections
+        origin: process.env.APP_URL, 
         methods: ["GET", "POST"],
         credentials: true,
     },
@@ -64,9 +63,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// Start the server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log('Server is running on port', PORT);
 });
 
-export default { io };
