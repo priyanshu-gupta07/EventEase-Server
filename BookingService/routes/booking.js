@@ -1,16 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const {
-    getBookings,
-    getBookingById,
-    createBooking,
-    updateBooking,
-    deleteBooking,
-    getBookingsByUserId,
-    getBookingsByEventId,
-    getNextEvent
-} = require('../controller/booking');
+import { getBookings, getBookingById, createBooking, updateBooking, deleteBooking, getBookingsByUserId, getBookingsByEventId, getNextEvent } from '../controller/booking.js';
 
 router.get('/', getBookings);
 router.get('/users/:userId', getBookingsByUserId);
@@ -21,4 +12,4 @@ router.put('/:bookingId/:booking_status', updateBooking);
 router.delete('/:bookingId', deleteBooking);
 router.get('/event/:eventId', getBookingsByEventId);
 
-module.exports = router;
+export default router;

@@ -1,11 +1,12 @@
-const express = require ('express');
-const dotenv = require('dotenv');
+import express from 'express';
+import dotenv from 'dotenv';
+import Connection from './connection.js';  // Note: .js extension required
+import bookingRouter from './routes/booking.js';  // Note: .js extension required
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+
 dotenv.config();
-const Connection = require('./connection');
-const bookingRouter = require('./routes/booking');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
 
 const PORT= process.env.PORT || 3002;
 const app = express();

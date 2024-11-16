@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const BookingSchema = new mongoose.Schema({
+const BookingSchema = new Schema({
     event_id: {
         type: String,
         required: true
@@ -43,6 +43,6 @@ const BookingSchema = new mongoose.Schema({
     }
 });
 
-const Booking = mongoose.model('Booking', BookingSchema);
+const Booking = model('Booking', BookingSchema);
 
-module.exports = Booking;
+export default Booking;

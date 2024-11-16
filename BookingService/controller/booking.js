@@ -1,4 +1,4 @@
-const Booking = require('../models/booking');
+import Booking from '../models/booking.js';
 
 const getBookings = async (req, res) => {
     try {
@@ -95,4 +95,4 @@ const getNextEvent = async (req, res) => {
     }
 }
 
-module.exports = { getBookings, getBookingById, createBooking, updateBooking, deleteBooking, getBookingsByUserId, getNextEvent, getBookingsByEventId};
+export  { getBookings, getBookingById, createBooking, updateBooking, deleteBooking, getBookingsByUserId, getNextEvent, getBookingsByEventId};

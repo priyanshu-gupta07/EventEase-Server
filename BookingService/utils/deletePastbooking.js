@@ -1,4 +1,4 @@
-const Booking = require('../models/booking'); // Adjust the path as needed
+import Booking from '../models/booking.js';
 
 // Function to delete past events
 async function deletePastbookings() {
@@ -13,4 +13,4 @@ async function deletePastbookings() {
   }
 }
 
-module.exports = deletePastbookings;
+export default deletePastbookings;
