@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . .
 
-COPY .env.example .env
-
 CMD [ "node", "index.js" ]

@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  booking:
+    image: priyanshu0718/booking:final
+    environment:
+      - PORT=3002
+      - APP_URL=http://localhost:3000
+      - GATEWAY_URL=http://gateway:3003
+    networks:
+      - app-network
+    ports:
+      - 3002:3002
+
+  gateway:
+    image: priyanshu0718/gateway:final 
+    environment:
+      - PORT=3003
+      - JWT_SECRET=secret
+      - EVENT_SERVICE_URL=http://event:3001
+      - BOOKING_SERVICE_URL=http://booking:3002
+      - APP_URL=http://localhost:3000
+    networks:
+      - app-network
+    depends_on:
+      - event
+      - booking
+    ports:
+      - 3003:3003
+
+  event:
+    image: priyanshu0718/event:final
+    environment:
+      - PORT=3001
+      - CLOUDINARY_API_KEY=813476969619293
+      - CLOUDINARY_API_SECRET=2WOjXlYWvNzjtDmPQNheUYoyXps
+      - CLOUDINARY_CLOUD_NAME=dvc85iwpj
+      - APP_URL=http://localhost:3000
+      - GATEWAY_URL=http://gateway:3003
+    networks:
+      - app-network
+    ports:
+      - 3001:3001
+
+networks:
+  app-network:
+    driver: bridge

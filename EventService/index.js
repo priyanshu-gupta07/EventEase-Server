@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 // CORS settings
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5000'];
+const allowedOrigins = [process.env.APP_URL,process.env.GATEWAY_URL];
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true);
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "http://localhost:3000",  // Set allowed origins for socket connections
+        origin: process.env.APP_URL,  // Set allowed origins for socket connections
         methods: ["GET", "POST"],
         credentials: true,
     },

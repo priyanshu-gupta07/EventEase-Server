@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 Connection();
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5000'];
+const allowedOrigins = [process.env.APP_URL, process.env.GATEWAY_URL];
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true);
