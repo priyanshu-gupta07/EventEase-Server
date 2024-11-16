@@ -1,5 +1,4 @@
-const Event = require("../models/events");
-const io = require("../index.js");
+import Event from "../models/events.js";
 
 const getAvailableEvents = async (req, res) => {
     try {
@@ -219,7 +218,7 @@ const updateEventseats = async (req, res) => {
 
 
 
-module.exports = {
+export  {
     getEventsByDate,
     getEventsByOrganizer,
     getEventsByTitle,

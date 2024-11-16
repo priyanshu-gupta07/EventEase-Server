@@ -1,13 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const dotenv = require('dotenv');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import http from 'http';
+import { Server } from 'socket.io';
+import Connection from './connection.js';  // Note: .js extension is required
+import eventRouter from './routes/event.js';  // Note: .js extension is required
+
 dotenv.config();
-const Connection = require("./connection");
-const eventRouter = require('./routes/event');
-const http = require('http');
-const socketIo = require('socket.io');
 
 const PORT = process.env.PORT || 3001;
 
@@ -34,7 +35,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Create HTTP server and attach socket.io to it
 const server = http.createServer(app);
-const io = socketIo(server, {
+const io = new Server(server, {
     cors: {
         origin: process.env.APP_URL,  // Set allowed origins for socket connections
         methods: ["GET", "POST"],
@@ -68,4 +69,4 @@ server.listen(PORT, () => {
     console.log('Server is running on port', PORT);
 });
 
-module.exports = { io };
+export default { io };

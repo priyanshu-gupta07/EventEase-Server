@@ -1,4 +1,4 @@
-const Event = require('../models/events'); // Adjust the path as needed
+import Event from '../models/events.js';
 
 // Function to delete past events
 async function deletePastEvents() {
@@ -13,4 +13,4 @@ async function deletePastEvents() {
   }
 }
 
-module.exports = deletePastEvents;
+export default deletePastEvents;

@@ -1,20 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const upload = require('../utils/multer');
-const Cloudinary = require('../utils/cloudinary');
-const {
-    createEvent,
-    getAvailableEvents,
-    getSingleEvent,
-    updateEvent,
-    deleteEvent,
-    getEventsByDate,
-    getEventsByOrganizer,
-    getEventsByTitle,
+import { Router } from 'express';
+const router = Router();
+import upload from '../utils/multer.js';
+import Cloudinary from '../utils/cloudinary.js';
+import { createEvent, 
+    getAvailableEvents, 
+    getSingleEvent, 
+    updateEvent, 
+    deleteEvent, 
+    getEventsByDate, 
+    getEventsByOrganizer, 
+    getEventsByTitle, 
     getEventsByLocation,
-    getEventsByTag,
-    updateEventseats
-} = require('../controllers/event');
+    getEventsByTag, 
+    updateEventseats } from '../controllers/event.js';
 
 router.post('/', upload.single('image'), async (req, res) => {
     Cloudinary.uploader.upload(req.file.path, async (err, result) => {
@@ -64,4 +62,4 @@ router.get('/location/:location', getEventsByLocation);
 router.get('/tag/:tag', getEventsByTag);
 router.put('/updateSeats/:id', updateEventseats);
 
-module.exports = router;
+export default router;
